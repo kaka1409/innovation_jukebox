@@ -105,7 +105,7 @@ class PlayerContainer(QFrame):
                     background: qlineargradient(
                         x1: 0, y1: 0, x2: 1, y2: 1,
                         stop: 0 rgba(50, 14, 142, 0.8),   
-                        stop: 0.8 rgba(0, 0, 0, 0.8)    
+                        stop: 0.8 rgba(0, 0, 0, 0.9)    
                     );
                 }
 

@@ -253,3 +253,4 @@ class SongListFrame(QFrame):
 
             """
         )
+

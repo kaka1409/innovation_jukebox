@@ -596,26 +596,7 @@ class Controller():
         # hide the reset button
         reset_button.hide()
 
-    #**********************************RUN THE APP**********************************#
-    def run():
-        """Run this function to start the application"""
 
-        app = QApplication(sys.argv)
-        app.setWindowIcon(QIcon("assets/icons/window_icon.png")) # set window icon
-
-        init = Controller()
-
-        # show loading screen
-        loading_screen = LoadingScreen()
-        loading_screen.show()
-
-        # run main window
-        window = init.view_window
-        window.loading_complete.connect(loading_screen.close) # close loading screen
-        window.loading_complete.connect(window.show)
-
-        print(f"Starting time: {round(time.process_time(), 2)} seconds") # print the amount of time need to start the app
-        sys.exit(app.exec())
 
 
 

@@ -60,7 +60,7 @@ class MetadataManager():
 
     def process_files(self, file_paths, file_names, image_paths, image_names, song_class):
         """
-        extract metadata from file name
+        extract metadata from file
         """
         
         song_objects_list = [] # store song objects
