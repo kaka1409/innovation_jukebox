@@ -23,24 +23,25 @@ This project is a ...
     ```
 
 3. Install the required packages:
+
+    install PyQt5 for UI development:
     ```bash
     pip install Pyqt5
     ```
-
+    
+    install pygame for mp3 file control:
     ```bash
     pip install pygame
     ```
 
+    install mutagen to extract mp3 file information:
     ```bash
     pip install mutagen
     ```
 
+    install yt_dlp to handle mp3 file from Youtube:
     ```bash
     pip install yt_dlp
-    ```
-
-    ```bash
-    pip install Pyqt5
     ```
 
 ## Usage
