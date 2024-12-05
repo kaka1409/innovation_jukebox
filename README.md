@@ -46,7 +46,7 @@ This project was initially coursework for my university that for some reason tur
 
 - FFmpeg download link: https://www.ffmpeg.org/download.html
 - Download and extract the file then put it in your C:/ 
-- Finally put it in your system's path C:\ffmpeg\bin
+- Finally add it to your system's path C:\ffmpeg\bin
 
 ## Usage
 
@@ -59,4 +59,4 @@ This project was initially coursework for my university that for some reason tur
 
 ## License
 
-This project is licensed under the MIT License. Please take a look at the [LICENSE](LICENSE) file for details.
+This project is licensed under the MIT License. Please look at the [LICENSE](LICENSE) file for details.
