@@ -2,24 +2,23 @@
 
 ## Overview
 
-This project is a ...
+This project was initially coursework for my university that for some reason turned into a passion project (since I love music so)
 
 ## Technologies
 
-- Technology 1: [Description]
-- Technology 2: [Description]
-- Technology 3: [Description]
+- Programing language: Python version 3.11.7
+- libraries and packages used: PyQt5 5.15.11, pygame 2.6.1, mutagen 1.47.0, yt-dlp 2024.11.18
 
 ## Installation
 
 1. Clone the repository:
     ```bash
-    git clone https://github.com/your-username/your-repository.git
+    git clone https://github.com/kaka1409/innovation_jukebox.git
     ```
 
 2. Navigate to the project directory:
     ```bash
-    cd your-repository
+    cd <your-repository>
     ```
 
 3. Install the required packages:
@@ -41,8 +40,13 @@ This project is a ...
 
     install yt_dlp to handle mp3 file from Youtube:
     ```bash
-    pip install yt_dlp
+    pip install yt-dlp
     ```
+4. Install FFmpeg and put it in your C drive
+
+- FFmpeg download link: https://www.ffmpeg.org/download.html
+- Download and extract the file then put it in your C:/ 
+- Finally put it in your system's path C:\ffmpeg\bin
 
 ## Usage
 
@@ -51,22 +55,8 @@ This project is a ...
     python main.py
     ```
 
-2. Follow the on-screen instructions to use the features.
-
-## Contributing
-
-Contributions are welcome! Please follow these steps:
-
-1. Fork the repository.
-2. Create a new branch (`git checkout -b feature-branch`).
-3. Make your changes and commit them (`git commit -m 'Add some feature'`).
-4. Push to the branch (`git push origin feature-branch`).
-5. Open a pull request.
+2. Wait for the application to run 
 
 ## License
 
-This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
-
-## Contact
-
-If you have any questions, feel free to open an issue or contact [your-email@example.com].
+This project is licensed under the MIT License. Please take a look at the [LICENSE](LICENSE) file for details.
