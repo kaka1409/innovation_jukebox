@@ -7,13 +7,20 @@ from src.views.widgets.custom_widgets.CustomQSilder import CustomQSilder
 class ProgressBar(QFrame):
     def __init__(self, parent = None):
         super().__init__(parent)
+        
+        self.init_properties()
+        self.init_children()
+        self.styling()
 
+    def init_properties(self):
         # position the frame
         self.setGeometry(30, 565, 500, 70)
 
         # init layout for the frame
         self.layout = QHBoxLayout(self)
         self.setContentsMargins(25, 0, 25, 0)
+
+    def init_children(self):
 
         # Song progress bar
         self.song_progress = CustomQSilder(Qt.Horizontal, self)
@@ -37,6 +44,7 @@ class ProgressBar(QFrame):
         self.end_time.setFont(QFont("Itim", 9, QFont.Light))
         self.end_time.setGeometry(471, 20, 30, 30)
 
+    def styling(self):
         # styling 
         self.setObjectName("control_frame")
         self.setStyleSheet(

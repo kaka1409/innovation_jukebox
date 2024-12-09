@@ -7,6 +7,11 @@ class OptionsFrame(QFrame):
     def __init__(self, parent = None):
         super().__init__(parent)
 
+        self.init_properties()
+        self.init_children()
+        self.styling()
+
+    def init_properties(self):
         # position the frame
         self.setGeometry(500, 25, 50, 280)
 
@@ -15,61 +20,86 @@ class OptionsFrame(QFrame):
         self.layout.setContentsMargins(0, 0, 0, 0)
         self.layout.setSpacing(25)
 
-        # contain all icon paths
-        self.icon_paths = [
-            "assets/icons/heart.png", # heart icon # 0
-            "assets/icons/hearted.png", # hearted icon # 1
-            "assets/icons/share.png", # share icon # 2
-            "assets/icons/add.png", # add icon # 3
-            "assets/icons/volume_off.png", # volume off icon # 4
-            "assets/icons/volume_not_full.png", # volume not full icon # 5
-            "assets/icons/volume_full", # full volume icon # 6
-        ]
+    def init_children(self):
 
-        # add icons to frame
-        self.add_options()
+        # contain all icon paths
+        self.icon_paths = {
+            "heart": "assets/icons/heart.png", # heart icon # 0
+            "hearted": "assets/icons/hearted.png", # hearted icon # 1
+            "share": "assets/icons/share.png", # share icon # 2
+            "add": "assets/icons/add.png", # add icon # 3
+            "volume_off": "assets/icons/volume_off.png", # volume off icon # 4
+            "volume_not_full": "assets/icons/volume_not_full.png", # volume not full icon # 5
+            "volume_full": "assets/icons/volume_full", # full volume icon # 6
+        }
+
+        # creat all buttons for the layout
+        self.heart_icon = QPushButton()               # heart icon
+        self.share_icon = QPushButton()               # share icon
+        self.add_icon = QPushButton()                 # add icon
+        self.volume_off_icon = QPushButton()            # volume off icon
+        self.volume_not_full_icon = QPushButton()       # volume not full icon
+        self.volume_full_icon = QPushButton()           # volume full icon
 
         # stacked layout for volume buttons
         self.volume_frame = QFrame()
         self.volume_frame.setFixedSize(50, 50)
         self.volume_frame.stacked_layout = QStackedLayout(self.volume_frame)
-        self.volume_change(80) # 80 is default volume value
+        
+        # style all buttons
+        self.styling_button(
+            {
+                "heart": self.heart_icon,               
+                "share": self.share_icon,               
+                "add": self.add_icon,                 
+                "volume_off": self.volume_off_icon,           
+                "volume_not_full": self.volume_not_full_icon,       
+                "volume_full": self.volume_full_icon, 
+            }
+        )
+
         self.layout.insertWidget(3, self.volume_frame) # add to main layout
 
-        # volume off icon
-        self.volume_off_icon = QPushButton()
-        self.volume_off_icon.setIcon(QIcon(self.icon_paths[4]))
-        self.volume_off_icon.setIconSize(QSize(50, 50))
-        self.volume_off_icon.setStyleSheet("padding-left: 7px;")
-        self.volume_off_icon.setCursor(Qt.PointingHandCursor)
-        self.volume_frame.stacked_layout.addWidget(self.volume_off_icon)
+        # default 
+        self.volume_frame.stacked_layout.setCurrentIndex(1) # set index 1 of the stacked volume button as default
+        self.volume_change(80) # 80 is default volume value
 
-        # volume not full icon
-        self.volume_not_full_icon = QPushButton()
-        self.volume_not_full_icon.setIcon(QIcon(self.icon_paths[5]))
-        self.volume_not_full_icon.setIconSize(QSize(50, 50))
-        self.volume_not_full_icon.setStyleSheet("padding-left: 7px;")
-        self.volume_not_full_icon.setCursor(Qt.PointingHandCursor)
-        self.volume_frame.stacked_layout.addWidget(self.volume_not_full_icon)
-
-        # volume full icon
-        self.volume_full_icon = QPushButton()
-        self.volume_full_icon.setIcon(QIcon(self.icon_paths[6]))
-        self.volume_full_icon.setIconSize(QSize(50, 50))
-        self.volume_full_icon.setStyleSheet("padding-left: 7px;")
-        self.volume_full_icon.setCursor(Qt.PointingHandCursor)
-        self.volume_frame.stacked_layout.addWidget(self.volume_full_icon)
-
-        # set index 1 of the stacked volume button as default
-        self.volume_frame.stacked_layout.setCurrentIndex(1)
-
-        # heart icon
-        heart_icon = self.layout.itemAt(0).widget()
-        heart_icon.clicked.connect(lambda: self.hearted(heart_icon))
+        # heart icon event connection
+       
+        self.heart_icon.clicked.connect(
+            lambda: self.hearted(self.heart_icon)
+        )
 
         self.is_hearted = False
 
-        # styling
+    def styling_button(self, button_dictionary):
+        """
+            change appearance of buttons in the options bar
+        """
+
+        for button_key in button_dictionary:
+            
+            # get button widget from the key in dictionary
+            button = button_dictionary[button_key]
+
+            # set button properties
+            button.setIcon(QIcon(self.icon_paths[button_key]))
+            button.setIconSize(QSize(50, 50))
+            button.setCursor(Qt.PointingHandCursor)
+
+            # volume button will be addded extra left padding
+            if "volume" in button_key: button.setStyleSheet("padding-left: 7px;")
+
+            # add to suitable layout
+            # if is not a volume button will be added to main layout
+            # else is a volume button will be added to volume stacked layout
+            if not "volume" in button_key:
+                self.layout.addWidget(button)
+            else:
+                self.volume_frame.stacked_layout.addWidget(button)
+
+    def styling(self):
+
         self.setObjectName("options_frame")
         self.setStyleSheet(
             """
@@ -90,69 +120,32 @@ class OptionsFrame(QFrame):
             """
         )
 
-    def add_options(self):
-
-        for index, icon_path in enumerate(self.icon_paths):
-            # only add the first 3 icons
-
-            # ignore hearted icon and volume icon
-            if (index == 1 or
-                index == 4 or 
-                index == 5 or
-                index ==  6) : 
-                continue
-
-            # create the button
-            icon_btn = QPushButton()
-            icon_btn.setFixedSize(50, 50)
-            icon_btn.setIcon(QIcon(icon_path))
-            
-            # styling icons
-            icon_btn.setIconSize(QSize(50, 50))
-            icon_btn.setCursor(Qt.PointingHandCursor)
-            icon_btn.setStyleSheet(
-                """
-                    QPushButton {
-                        margin: 0;
-                        padding: 0;
-                        width: 50px;
-                        height: 50px;
-                        background-color: rgba(0, 0, 0, 0);
-                        border-radius: 15px;
-                        border: none;
-                    }
-
-                    QPushButton:hover {
-                        background-color: rgba(255, 255, 255, 0.2)
-                    }
-                """
-            )
-
-            # add icon to layout
-            self.layout.addWidget(icon_btn)
-
+    """
+    Any methods below styling will be specific functions that have role to update the UI
+    """
     def volume_change(self, value):
-        """this function will be called whenver the volume changed"""
+        """
+        this function will be called whenver the volume changed
+        """
         
-        if value in range(0, 1):
-            self.volume_frame.stacked_layout.setCurrentIndex(0)
+        index = 1 # default index
 
-        if value in range(1, 99):
-            self.volume_frame.stacked_layout.setCurrentIndex(1)
+        if value in range(0, 1): index = 0
+        if value in range(1, 99): index = 1
+        if value in range(99, 100): index = 2
 
-        if value == 100:
-            self.volume_frame.stacked_layout.setCurrentIndex(2)
+        self.volume_frame.stacked_layout.setCurrentIndex(index)
 
     def hearted(self, heart_icon):
         
         if self.is_hearted:
 
-            heart_icon.setIcon(QIcon(self.icon_paths[0]))
+            heart_icon.setIcon(QIcon(self.icon_paths["heart"]))
             self.is_hearted = False
 
         else:
 
-            heart_icon.setIcon(QIcon(self.icon_paths[1]))
+            heart_icon.setIcon(QIcon(self.icon_paths["hearted"]))
             self.is_hearted = True
 
 

@@ -13,7 +13,7 @@ class LoadingScreen(QWidget):
         self.setFixedSize(450, 300)
 
         # centering loading screen on the deskop
-        center_widget(self)
+        center_widget(self, QApplication.desktop().screenGeometry())
 
         # init layout
         layout = QVBoxLayout(self)

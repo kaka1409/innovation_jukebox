@@ -12,24 +12,26 @@ from PyQt5.QtCore import Qt, QPropertyAnimation
 from src.views.widgets.custom_widgets.CustomGraphicView import CustomGraphicsView
 
 class Thumbnail(QFrame):
-    def __init__(self, parent=None):
+    def __init__(self, parent = None):
         super().__init__(parent)
 
+        self.init_properties()
+        self.init_children()
+        self.init_thumbnail_animation()
+
+    def init_properties(self):
         # Set the geometry and size of the thumbnail frame
         self.setGeometry(130, 180, 300, 300)
         self.setStyleSheet("background-color: transparent; border-radius: 300px;")
-
-        # Default image path
-        default_image_path = "assets/images/song_thumbnails/A_New_Kind_Of_Love.jpg"
-
-        # Thumbnail dimensions
-        thumbnail_width = self.width()
-        thumbnail_height = self.height()
 
         # Set layout
         self.layout = QVBoxLayout()
         self.layout.setContentsMargins(0, 0, 0, 0)
         self.setLayout(self.layout)
+
+    def init_children(self):
+        # Default image path
+        default_image_path = "assets/images/song_thumbnails/A_New_Kind_Of_Love.jpg"
 
         # Create a QGraphicsView and QGraphicsScene
         self.view = CustomGraphicsView(self)
@@ -60,7 +62,7 @@ class Thumbnail(QFrame):
 
         # Create a rounded path for masking
         path = QPainterPath()
-        corner_radius = thumbnail_height  # Adjust corner radius for smoother corners
+        corner_radius = 300  # Adjust corner radius for smoother corners
         path.addRoundedRect(0, 0, 300, 300, corner_radius, corner_radius)
 
         # Apply the rounded mask to the QLabel
@@ -68,22 +70,19 @@ class Thumbnail(QFrame):
         self.image.setMask(region)
 
         # Load and set the default pixmap
-        pixmap = QPixmap(default_image_path)
-        if not pixmap.isNull():  # Check if the image is loaded
-            pixmap = pixmap.scaled(
-                thumbnail_width,
-                thumbnail_height,
-                Qt.KeepAspectRatioByExpanding,
-                Qt.SmoothTransformation,
-            )
-            self.image.setPixmap(pixmap)
-        else:
-            self.image.setText("Image not found!")
-            self.image.setStyleSheet("color: white; font-size: 16px;")
+        pixmap = QPixmap(default_image_path).scaled(
+            300,
+            300,
+            Qt.KeepAspectRatioByExpanding,
+            Qt.SmoothTransformation,
+        )
+        
+        self.image.setPixmap(pixmap)
 
         # display the thumbnail
         self.image.show()
 
+    def init_thumbnail_animation(self):
         # Rotate animation
         self.rotate_animation = QPropertyAnimation(self.proxy_widget, b"rotation")
         self.rotate_animation.setDuration(5000)  # Duration for a full rotation (2000ms)

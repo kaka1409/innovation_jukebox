@@ -6,6 +6,10 @@ class ControlFrame(QFrame):
     def __init__(self, parent = None):
         super().__init__(parent)
 
+        self.initProperties()
+        self.styling()
+
+    def initProperties(self):
         # position the frame
         self.setGeometry(20, 645, 525, 70)
 
@@ -58,6 +62,7 @@ class ControlFrame(QFrame):
         self.play_button.setIconSize(QSize(50, 50))
         self.play_button.setCursor(Qt.PointingHandCursor)
         self.stack_button_frame.layout.addWidget(self.play_button)
+        self.play_button.clicked.connect(self.let_go)
 
         # pause button
         self.pause_button = QPushButton(self)
@@ -87,6 +92,7 @@ class ControlFrame(QFrame):
         # add stack frame to layout
         self.layout.insertWidget(2, self.stack_button_frame)
         
+    def styling(self):
         # styling the frame
         self.setObjectName("control_frame")
         self.setStyleSheet(
@@ -129,6 +135,9 @@ class ControlFrame(QFrame):
         else:
             self.shuffle_button.setIcon(QIcon(self.icon_paths[7]))
             self.is_shuffled = False
+
+    def let_go(self):
+        print("hello world")
 
 
     

@@ -6,7 +6,7 @@ This project was initially coursework for my university that for some reason tur
 
 ## Technologies
 
-- Programing language: Python version 3.11.7
+- Programing language: Python version 3.12.4
 - libraries and packages used: PyQt5 5.15.11, pygame 2.6.1, mutagen 1.47.0, yt-dlp 2024.11.18
 
 ## Installation
@@ -45,7 +45,7 @@ This project was initially coursework for my university that for some reason tur
 4. Install FFmpeg and put it in your C drive
 
 - FFmpeg download link: https://www.ffmpeg.org/download.html
-- Download and extract the file then put it in your C:/ 
+- Download and extract the file then put it in your C:\\
 - Finally add it to your system's path C:\ffmpeg\bin
 
 ## Usage

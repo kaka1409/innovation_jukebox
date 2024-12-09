@@ -7,7 +7,9 @@ import math
 from PyQt5.QtWidgets import QApplication
 
 def get_formated_time(time):
-    """return the correct time format"""
+    """
+    return the correct time format
+    """
     minutes = int(math.floor(time / 60))
     seconds = int(math.floor(time)) - minutes * 60
     if seconds in range(0, 10): seconds = "0" + str(seconds)
@@ -15,7 +17,9 @@ def get_formated_time(time):
     return f'{minutes}:{seconds}'
 
 def generate_id(item_list):
-    """return a new id for the song"""
+    """
+    return a new id for the song
+    """
 
     # ok here me out I asure that the last item will has the same value as the length of the list
     # note that index start as 1
@@ -25,14 +29,16 @@ def generate_id(item_list):
     return last_index + 1
 
 def sort_by_id(unsorted_files):
-    """sort the song list by id"""
+    """
+    sort the song list by id
+    """
     return sorted(unsorted_files, key = lambda x: int(x.split(';')[0]))
 
-def center_widget(widget):
-    """center the widget on the screen"""
-
-    screen = QApplication.desktop().screenGeometry()
-    x = (screen.width() - widget.width()) // 2
-    y = (screen.height() - widget.height()) // 2
+def center_widget(widget, parent_widget):
+    """
+    center the widget on the screen
+    """
+    x = (parent_widget.width() - widget.width()) // 2
+    y = (parent_widget.height() - widget.height()) // 2
     widget.move(x, y)
 

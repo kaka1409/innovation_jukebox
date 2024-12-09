@@ -2,15 +2,15 @@ from PyQt5.QtWidgets import QLabel, QFrame, QHBoxLayout, QVBoxLayout, QListWidge
 from PyQt5.QtGui import QFont, QIcon, QPixmap, QPainterPath, QRegion
 from PyQt5.QtCore import Qt, QSize
 
+from src.utils.helpers import center_widget
+
 class SongListFrame(QFrame):
     def __init__(self, parent = None):
         super().__init__(parent)
-
-        # init the frame(layout, size, ...)
-        self.initProperties()
-
-        # styling the frame and widgets
-        self.styling()
+        
+        self.initProperties() # init the frame(layout, size, ...)
+        self.init_children() # init all necessary widgets
+        self.styling() # styling the frame and widgets
 
     def initProperties(self):
         
@@ -21,6 +21,7 @@ class SongListFrame(QFrame):
         self.layout = QVBoxLayout(self)
         self.layout.setContentsMargins(0, 0, 0, 0)
 
+    def init_children(self):
         # Song list
         self.song_list = QListWidget(self)
         self.song_list.setVerticalScrollMode(QListWidget.ScrollPerPixel) # scroll smoother
@@ -29,7 +30,6 @@ class SongListFrame(QFrame):
         self.song_list.setFocusPolicy(Qt.NoFocus)
         self.song_list.setObjectName("song_list")
         self.song_list.setFixedWidth(525)
-        self.song_list.setCurrentRow(0)
 
         # scroll bar of the song list
         scrollbar = self.song_list.verticalScrollBar()
@@ -48,11 +48,8 @@ class SongListFrame(QFrame):
         self.message.setVisible(False)
 
         # center the message
-        margin_right = (self.width() - self.message.width()) // 2
-        margin_top  = (self.height() - self.message.height()) // 2
+        center_widget(self.message, self)
         
-        self.message.move(margin_right, margin_top)
-
         self.layout.addWidget(self.song_list)
 
     def create_song_frame(self, song_name, artist, thumbnail = ""):

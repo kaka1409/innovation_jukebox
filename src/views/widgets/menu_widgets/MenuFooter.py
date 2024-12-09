@@ -1,4 +1,14 @@
-from PyQt5.QtWidgets import QFrame, QHBoxLayout, QPushButton, QLabel, QWidget, QVBoxLayout, QLineEdit
+from PyQt5.QtWidgets import (
+    QApplication, 
+    QFrame, 
+    QHBoxLayout, 
+    QPushButton, 
+    QLabel, 
+    QWidget, 
+    QVBoxLayout,
+    QLineEdit
+)
+
 from PyQt5.QtGui import QFont, QIcon
 from PyQt5.QtCore import Qt, QSize
 
@@ -84,7 +94,7 @@ class MenuFooter(QFrame):
         self.add_window.setAttribute(Qt.WA_TranslucentBackground, True)
         self.add_window.setObjectName("add_window")
         self.add_window.setFixedSize(300, 200)
-        center_widget(self.add_window)
+        center_widget(self.add_window, QApplication.desktop().screenGeometry())
 
         self.add_window_layout = QVBoxLayout(self.add_window)
 
