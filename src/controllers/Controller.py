@@ -5,8 +5,6 @@ import time
 from random import randint
 
 # libs
-from PyQt5.QtWidgets import QApplication
-from PyQt5.QtGui import QIcon
 from PyQt5.QtCore import QTimer
 
 # views
@@ -252,7 +250,9 @@ class Controller():
         self, timer, progress_bar, loop_button, 
         shuffle_button, play_button, next_button, song_list
     ):
-        """update progress bar and current time"""
+        """
+        update progress bar and current time
+        """
 
         # get progress bar frame
         progress_bar_frame = progress_bar.parent()
@@ -264,10 +264,14 @@ class Controller():
 
         new_value = round(time_point * (progress_bar_max / song_duration))
 
+        # print(f"""
+        # time point: {time_point}
+        # time skipped: {self.service_audio.time_skipped}
+        # offset: {self.service_audio.offset}""")
+
+
         # update progress bar
-        progress_bar.is_programmic_changed = True 
-        progress_bar.setValue(new_value)
-        progress_bar.is_programmic_changed = False
+        progress_bar_frame.change_value(new_value)
 
         # update current time
         current_time_label = progress_bar_frame.current_time
@@ -276,7 +280,10 @@ class Controller():
         
         # check if the song has ended (check the current value of song's progress reached its max)
         if time_point == song_duration or new_value == progress_bar_max:
-
+            
+            # reset pygame mixer
+            self.service_audio.reset_time()
+            
             # options
             loop_option = loop_button.parent().is_looped
             shuffle_option = shuffle_button.parent().is_shuffled
@@ -286,7 +293,7 @@ class Controller():
                 """This block code will be executed if is_looped is on"""
 
                 # reset progress bar
-                progress_bar.setValue(0)
+                progress_bar_frame.change_value(0)
                 current_time_label.setText("0:00")
 
                 # reload current song
@@ -312,17 +319,12 @@ class Controller():
                 # get random value ranging from 0 to the index of the last item in the song list
                 random_index = randint(0, end_index)
                 
-                if random_index == current_song_index:
-                    new_random_index = randint(0, end_index)
+                # create a new random if the current random value is the same as the current song index
+                while random_index == current_song_index:
 
-                    # get new random number until it not equal to the current song index                    
-                    while new_random_index == random_index:
-                        new_random_index = randint(0, end_index)
-                    
-                    song_list.setCurrentRow(new_random_index)
+                    random_index = randint(0, end_index)
 
-                else:
-                    song_list.setCurrentRow(random_index)
+                song_list.setCurrentRow(random_index)
 
                 # click play button
                 play_button.click()
@@ -332,9 +334,6 @@ class Controller():
 
                 # stop updating 
                 timer.stop()
-
-                # reset pygame mixer
-                self.service_audio.stop()
 
                 # reset to play button
                 stacked_button = play_button.parent().layout
@@ -354,11 +353,11 @@ class Controller():
         """update song progress bar according to user skip"""
 
         if not progress_bar.is_programmic_changed:
+
             pause_button.click()
 
             song_duration = self.service_audio.get_file_duration(self.current_song.path)
-            ratio = song_duration / progress_bar.maximum()
-            current_time = ratio * progress_bar.value()
+            current_time = song_duration * (progress_bar.value() / progress_bar.maximum())
 
             current_time_label = progress_bar.parent().current_time
             current_time_label.setText(get_formated_time(current_time))
@@ -440,13 +439,14 @@ class Controller():
         
         # Reset time display and progress
         player_container.progress_bar.current_time.setText("0:00")
-        player_container.progress_bar.song_progress.setValue(0)
+        player_container.progress_bar.change_value(0)
         player_container.progress_bar.end_time.setText(song_object.duration)
 
         # Reset controls
         player_container.control_frame.stack_button_frame.layout.setCurrentIndex(0)
-        player_container.thumbnail.reset_animation()
 
+        # reset thumbnail animation
+        player_container.thumbnail.reset_animation()
     def handle_song_addtion(self, confirm_button):
         """
         update song list when a new song is added

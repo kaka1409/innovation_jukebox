@@ -1,0 +1,12 @@
+id, name, artist, duration, path, thumbnail, link
+1, A New kind Of Love, Frou Frou, 3:47, ../models/songs/1.mp3, ../models/thumbnails/1.jpg, https://www.youtube.com/watch?v=Bac6fzUuCjQ
+2, Apologize, Timbaland and OneRepublic, 3:04, ../models/songs/2.mp3, ../models/thumbnails/2.jpg, https://www.youtube.com/watch?v=ZSM3w1v-A_Y
+3, Fireflies, khai dreams, 3:13, ../models/songs/3.mp3, ../models/thumbnails/3.jpg, https://www.youtube.com/watch?v=JbVR9nuBBek
+4, Heat Waves, Glass Animals, 4:00, ../models/songs/4.mp3, ../models/thumbnails/4.jpg, https://www.youtube.com/watch?v=mRD0-GxqHVo
+5, Intentions, Justine Bieber, 3:33, ../models/songs/5.mp3, ../models/thumbnails/5.jpg, https://youtu.be/3AyMjyHu1bA?si=uAUf-i9A6VQOrA1V
+6, Into your Arms, Ava Max, 3:03, ../models/songs/6.mp3, ../models/thumbnails/6.jpg, https://www.youtube.com/watch?v=tHB_Uakz54M
+7, Mood, 24k and Iann Dior, 2:38, ../models/songs/7.mp3, ../models/thumbnails/7.jpg, https://youtu.be/GrAchTdepsU?si=_YPxnFlHtkD6f76d
+8, STAY, The Kid LAROI and Justine Bieber, 2:22, ../models/songs/8.mp3, ../models/thumbnails/8.jpg, https://youtu.be/kTJczUoc26U?si=xNNMrXbE1pCyBwUJ
+9, Sunflower, Post Malone and Swae Lee, 2:42, ../models/songs/9.mp3, ../models/thumbnails/9.jpg, https://youtu.be/ApXoWvfEYVU?si=923W9wzP6_xNRofF
+10, Wating For Love, Avicii, 3:48, ../models/songs/10.mp3, ../models/thumbnails/10.jpg, https://www.youtube.com/watch?v=-ncIVUXZla8
+

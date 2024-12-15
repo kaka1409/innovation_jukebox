@@ -138,7 +138,9 @@ class SongListFrame(QFrame):
         self.song_list.setItemWidget(song_item, song_frame)
 
     def check_list_is_visible(self):
-        """function to check whether all songs in the list is hidden"""
+        """
+        function to check whether all songs in the list is hidden
+        """
 
         # flag
         is_visible = True
@@ -150,7 +152,7 @@ class SongListFrame(QFrame):
 
             song_item = song_list.item(index)
 
-            # is the loop detect 1 song is not hidden the flag will be changed
+            # if the loop detect 1 song is not hidden the flag will be changed
             if not song_item.isHidden():
                 is_visible = False
 

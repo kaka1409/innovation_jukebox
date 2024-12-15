@@ -2,6 +2,8 @@ from PyQt5.QtWidgets import QFrame, QLabel
 from PyQt5.QtGui import QFont
 from PyQt5.QtCore import Qt
 
+from src.utils.helpers import center_widget
+
 class ArtistFrame(QFrame):
     def __init__(self, parent = None):
         super().__init__(parent)
@@ -18,8 +20,4 @@ class ArtistFrame(QFrame):
         self.status.setFont(QFont("Itim", 20, QFont.Bold))
 
         # center the status label
-        margin_right = (self.width() - self.status.width()) // 2
-        margin_top  = (self.height() - self.status.height()) // 2
-        
-
-        self.status.move(margin_right, margin_top)
+        center_widget(self.status, self)

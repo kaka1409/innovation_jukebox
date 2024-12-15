@@ -84,7 +84,7 @@ class PlayerContainer(QFrame):
         # volume bar
         self.volume_bar = QSlider(Qt.Vertical)
         self.volume_bar.setRange(0, 100)
-        self.volume_bar.setValue(80)
+        self.volume_bar.setValue(60)
         self.volume_bar.setInvertedAppearance(True)
         self.volume_bar.setObjectName("volume_bar")
         self.volume_bar.setMinimumHeight(125)

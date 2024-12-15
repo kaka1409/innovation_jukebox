@@ -13,7 +13,7 @@ class Title(QWidget):
         self.juke_label.setAlignment(Qt.AlignRight)
 
         # Add shadow effect to "JUKE"
-        juke_shadow = QGraphicsDropShadowEffect(self)
+        juke_shadow = QGraphicsDropShadowEffect()
         juke_shadow.setBlurRadius(20)  # Smoothness of the shadow
         juke_shadow.setOffset(10, 10)  # Horizontal and vertical offsets
         juke_shadow.setColor(QColor(0, 0, 0, 100))  # dark
@@ -26,7 +26,7 @@ class Title(QWidget):
         self.box_label.setAlignment(Qt.AlignLeft)
 
         # Add shadow effect to "BOX"
-        box_shadow = QGraphicsDropShadowEffect(self)
+        box_shadow = QGraphicsDropShadowEffect()
         box_shadow.setBlurRadius(20)  # Smoothness of the shadow
         box_shadow.setOffset(-10, 10)  # Horizontal and vertical offsets
         box_shadow.setColor(QColor(255, 255, 255, 100))  #  white

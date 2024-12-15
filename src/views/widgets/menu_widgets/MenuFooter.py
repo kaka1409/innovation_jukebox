@@ -6,16 +6,17 @@ from PyQt5.QtWidgets import (
     QLabel, 
     QWidget, 
     QVBoxLayout,
-    QLineEdit
+    QLineEdit,
+    QGraphicsDropShadowEffect
 )
 
-from PyQt5.QtGui import QFont, QIcon
+from PyQt5.QtGui import QFont, QIcon, QColor
 from PyQt5.QtCore import Qt, QSize
 
 from src.utils.helpers import center_widget
 
 class MenuFooter(QFrame):
-    def __init__(self, parent=None):
+    def __init__(self, parent = None):
         super().__init__(parent)
 
         # Set geometry and layout for the footer
@@ -97,22 +98,30 @@ class MenuFooter(QFrame):
         center_widget(self.add_window, QApplication.desktop().screenGeometry())
 
         self.add_window_layout = QVBoxLayout(self.add_window)
+        self.add_window_layout.setSpacing(10)
 
         # create the background for the popup window
-        self.window_background = QFrame(self.add_window)
-        self.window_background.move(0, 0)
-        self.window_background.setFixedSize(300, 200)
-        self.window_background.setStyleSheet(
+        self.popup_background = QFrame(self.add_window)
+        self.popup_background.move(0, 0)
+        self.popup_background.setFixedSize(300, 200)
+        self.popup_background.setStyleSheet(
             """
                 background: qlineargradient(
                         x1: 0, y1: 0, x2: 0, y2: 1,
-                        stop: 0 rgba(200, 190, 230, 0.95),
-                        stop: 1 rgba(170, 90, 160, 0.95)   
+                        stop: 0 rgb(200, 190, 230),
+                        stop: 1 rgb(190, 120, 200)   
                     );
 
                 border-radius: 20px;
             """
         )
+
+        # creaate shadow effect for the pop up
+        shadow = QGraphicsDropShadowEffect()
+        shadow.setBlurRadius(20)
+        shadow.setOffset(10, 10)
+        shadow.setColor(QColor(0, 0, 0, 100))
+        self.popup_background.setGraphicsEffect(shadow)
 
         # confirm label
         self.add_window_label = QLabel("Add song")
@@ -175,19 +184,20 @@ class MenuFooter(QFrame):
         # styling the pop up window
         self.add_window.setStyleSheet(
             """
-
                 #label {
                     color: black;
                     background-color: rgba(255, 255, 255, 0.5);
                 }
 
                 #song_name_input, #artist_input, #link_input {
-                    border-radius: 8px;
+                    border: none;
+                    border-bottom: 1px solid black;
                     color: black;
-                    background-color: rgba(255, 255, 255, 0.7);
+                    background-color: transparent;
                 }
 
                 #confirm_button, #cancel_button {
+                    padding-bottom: 5px;
                     border-radius: 15px;
                     color: black;
                     background-color: rgba(255, 255, 255, 0.4);

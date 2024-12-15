@@ -24,34 +24,43 @@ class ProgressBar(QFrame):
 
         # Song progress bar
         self.song_progress = CustomQSilder(Qt.Horizontal, self)
-        self.song_progress.setRange(0, 100)
+        self.song_progress.setRange(0, 200)
         self.song_progress.setValue(0)
-        self.song_progress.setObjectName("song_progress")
         self.layout.addWidget(self.song_progress) # add to layout
         self.song_progress.is_programmic_changed = False
 
         # start time stamp
-        default_current_time = "0:00"
+        default_current_time = "--:--"
         self.current_time = QLabel(default_current_time, self)
-        self.current_time.setStyleSheet("color: white;")
         self.current_time.setFont(QFont("Itim", 9, QFont.Light))
         self.current_time.setGeometry(6, 20, 30, 30)
 
         # start end stamp
-        default_end_time = "0:00"
+        default_end_time = "--:--"
         self.end_time = QLabel(default_end_time, self)
-        self.end_time.setStyleSheet("color: white;")
         self.end_time.setFont(QFont("Itim", 9, QFont.Light))
         self.end_time.setGeometry(471, 20, 30, 30)
 
     def styling(self):
-        # styling 
+
+        # naming the widgets to target them in QSS
         self.setObjectName("control_frame")
+        self.song_progress.setObjectName("song_progress")
+        self.current_time.setObjectName("start_time")
+        self.end_time.setObjectName("end_time")
+
+        # styling 
         self.setStyleSheet(
             """
                 #control_frame {
                     margin: 0;
                     padding: 0 10px;
+                }
+
+                #start_time, #end_time {
+                    margin: 0;
+                    padding: 0;
+                    color: white;
                 }
 
                 #song_progress::groove:horizontal {
@@ -81,7 +90,17 @@ class ProgressBar(QFrame):
                     background: rgba(255, 255, 255, 0.3);
                     border-radius: 2px;
                 }
+
             """
         )
+
+    def change_value(self, value):
+        """
+        change value of the QSilder using setValue() and update the state
+        to differentiate from the change made by user
+        """
+        self.song_progress.is_programmic_changed = True 
+        self.song_progress.setValue(value)
+        self.song_progress.is_programmic_changed = False 
 
 

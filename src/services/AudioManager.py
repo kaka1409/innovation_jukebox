@@ -4,9 +4,9 @@ AudioManager class is created to porvide audio controls to mp3 files (play, paus
 
 """
 
-
 import os
 import math
+os.environ['PYGAME_HIDE_SUPPORT_PROMPT'] = "True" # hide pygame default support prompt
 import pygame
 from mutagen.mp3 import MP3
 
@@ -14,25 +14,26 @@ from src.utils.helpers import sort_by_id
 
 class AudioManager():
     def __init__(self, folder_path):
+        
+        # call pygame constructor
+        pygame.init()
+        pygame.mixer.init(frequency = 48000)
 
-        pygame.init() # call pygame constructor
         self.is_statrted = False
 
         self.folder = folder_path
         self.isRunning = False # state
-        self.time_skipped = 0
-        self.offset = 0
+        self.time_skipped = 0 # time skipped to
+        self.offset = 0 # old time point
 
         # song ended event
         self.MUSIC_END = pygame.USEREVENT + 1
         pygame.mixer.music.set_endevent(self.MUSIC_END)
 
-        self.check_ended()
-
     def load_file(self, file_path):
         """load file and ready to play"""
         file_path_str = str(file_path)
-        pygame.mixer_music.load(file_path_str)
+        pygame.mixer.music.load(file_path_str)
 
     def play(self):
         """play file"""
@@ -51,7 +52,7 @@ class AudioManager():
     def skip_to(self, time_point):
         """skip to a particular time stamp in the file"""
         self.time_skipped = time_point
-        self.offset = round(pygame.mixer.music.get_pos() / 1000)
+        self.offset = pygame.mixer.music.get_pos() / 1000
         pygame.mixer.music.set_pos(time_point)
 
     def stop(self):
@@ -64,6 +65,12 @@ class AudioManager():
         # set_volume() receive value from 0 -> 1
         pygame.mixer.music.set_volume(value / 100)
 
+    def reset_time(self):
+        """reset time skipped and old time point"""
+        self.time_skipped = 0
+        self.offset = 0
+        pygame.mixer.music.set_pos(0.0)
+
     def check_ended(self):
         for event in pygame.event.get():
             if event.type == self.MUSIC_END:
@@ -74,12 +81,9 @@ class AudioManager():
     def get_time_stamp(self):
         start_from_init = pygame.mixer.music.get_pos() / 1000
 
-        if self.time_skipped == 0: # song start
+        if self.time_skipped == 0 and self.offset == 0: # song start
             return round(start_from_init)
-        elif self.check_ended(): # song ended
-            self.time_skipped = 0
-            self.offset = 0
-            return 0
+        
         else: # when running
             return round(start_from_init +  self.time_skipped - self.offset)
 

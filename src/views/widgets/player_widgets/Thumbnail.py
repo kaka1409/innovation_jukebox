@@ -109,20 +109,27 @@ class Thumbnail(QFrame):
             self.image.setStyleSheet("color: white; font-size: 30px;")
 
     def start_rotating(self):
-
+        """
+        Start the rotation animation.
+        """
         self.rotate_animation.setStartValue(self.current_angle)
         self.rotate_animation.setEndValue(self.current_angle + 360)  # Full rotation
         self.rotate_animation.start()
         self.is_rotating = True
 
     def pause_rotating(self):
-
+        """
+        Pause the rotation animation and store the current angle.
+        """
         self.rotate_animation.stop()
         self.current_angle = self.proxy_widget.rotation() % 360  # Store the rotation
         self.is_rotating = False
 
     def reset_animation(self):
-        
+        """
+        Reset the rotation animation
+        """
+
         self.current_angle = 0
         self.is_rotating = False
 

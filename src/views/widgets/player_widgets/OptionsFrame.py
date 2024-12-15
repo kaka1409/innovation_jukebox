@@ -34,9 +34,9 @@ class OptionsFrame(QFrame):
         }
 
         # creat all buttons for the layout
-        self.heart_icon = QPushButton()               # heart icon
-        self.share_icon = QPushButton()               # share icon
-        self.add_icon = QPushButton()                 # add icon
+        self.heart_icon = QPushButton()                 # heart icon
+        self.share_icon = QPushButton()                 # share icon
+        self.add_icon = QPushButton()                   # add icon
         self.volume_off_icon = QPushButton()            # volume off icon
         self.volume_not_full_icon = QPushButton()       # volume not full icon
         self.volume_full_icon = QPushButton()           # volume full icon
@@ -47,7 +47,7 @@ class OptionsFrame(QFrame):
         self.volume_frame.stacked_layout = QStackedLayout(self.volume_frame)
         
         # style all buttons
-        self.styling_button(
+        self.init_button_properties(
             {
                 "heart": self.heart_icon,               
                 "share": self.share_icon,               
@@ -62,19 +62,16 @@ class OptionsFrame(QFrame):
 
         # default 
         self.volume_frame.stacked_layout.setCurrentIndex(1) # set index 1 of the stacked volume button as default
-        self.volume_change(80) # 80 is default volume value
+        self.volume_change(60) # 60 is default volume value
 
         # heart icon event connection
-       
-        self.heart_icon.clicked.connect(
-            lambda: self.hearted(self.heart_icon)
-        )
+        self.heart_icon.clicked.connect(self.hearted)
 
         self.is_hearted = False
 
-    def styling_button(self, button_dictionary):
+    def init_button_properties(self, button_dictionary):
         """
-            change appearance of buttons in the options bar
+        change appearance of buttons in the options bar
         """
 
         for button_key in button_dictionary:
@@ -123,6 +120,7 @@ class OptionsFrame(QFrame):
     """
     Any methods below styling will be specific functions that have role to update the UI
     """
+
     def volume_change(self, value):
         """
         this function will be called whenver the volume changed
@@ -136,16 +134,16 @@ class OptionsFrame(QFrame):
 
         self.volume_frame.stacked_layout.setCurrentIndex(index)
 
-    def hearted(self, heart_icon):
+    def hearted(self):
         
         if self.is_hearted:
 
-            heart_icon.setIcon(QIcon(self.icon_paths["heart"]))
+            self.heart_icon.setIcon(QIcon(self.icon_paths["heart"]))
             self.is_hearted = False
 
         else:
 
-            heart_icon.setIcon(QIcon(self.icon_paths["hearted"]))
+            self.heart_icon.setIcon(QIcon(self.icon_paths["hearted"]))
             self.is_hearted = True
 
 
