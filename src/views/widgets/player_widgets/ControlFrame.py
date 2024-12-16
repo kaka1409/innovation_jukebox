@@ -6,11 +6,11 @@ class ControlFrame(QFrame):
     def __init__(self, parent = None):
         super().__init__(parent)
 
-        self.initProperties()
-        self.init_childern()
-        self.styling()
+        self.init_properties()
+        self.init_children()
+        self.init_appearance()
 
-    def initProperties(self):
+    def init_properties(self):
         # position the frame
         self.setGeometry(20, 645, 525, 70)
 
@@ -27,7 +27,7 @@ class ControlFrame(QFrame):
         # set stacked layout for button frame
         self.stack_button_frame.layout = QStackedLayout(self.stack_button_frame)
 
-    def init_childern(self):
+    def init_children(self):
 
         # list of icon paths
         self.icon_paths = {
@@ -72,26 +72,31 @@ class ControlFrame(QFrame):
 
         for button_key in buttons_dictionary:
 
-            # get the button from the dictionary
+            # get the button and icon from the dictionaries
             button = buttons_dictionary[button_key]
+            icon = self.icon_paths[button_key]
 
             # set button properties
             button.setFixedSize(50, 50)
-            button.setIcon(QIcon(self.icon_paths[button_key]))
+            button.setIcon(QIcon(icon))
             button.setIconSize(QSize(50, 50))
             button.setCursor(Qt.PointingHandCursor)
 
             # set loop button and shuffle button to off as default
             if button_key in ["repeat", "shuffle"]:
-                button.setIcon(QIcon(self.icon_paths[button_key + "_off"]))
+                off_icon = self.icon_paths[button_key + "_off"]
+                button.setIcon(QIcon(off_icon))
 
             # add buttons to appropriate layout
+            main_layout = self.layout
+            stacked_buttons_layout = self.stack_button_frame.layout
+
             if button_key in ["play", "pause"]: 
-                self.stack_button_frame.layout.addWidget(button)
+                stacked_buttons_layout.addWidget(button)
             else:
-                self.layout.addWidget(button)
+                main_layout.addWidget(button)
         
-    def styling(self):
+    def init_appearance(self):
         # styling the frame
         self.setObjectName("control_frame")
         self.setStyleSheet(
@@ -117,29 +122,29 @@ class ControlFrame(QFrame):
 
     def update_loop_icon(self):
         """ change the loop icon of the button is clicked"""
+        
+        # loop icons
+        loop_icon = self.icon_paths["repeat"]
+        loop_off_icon = self.icon_paths["repeat_off"]
 
-        if not self.is_looped:
-            self.loop_button.setIcon(QIcon(self.icon_paths["repeat"]))
+        if self.is_looped == False:
+            self.loop_button.setIcon(QIcon(loop_icon))
             self.is_looped = True
         else:
-            self.loop_button.setIcon(QIcon(self.icon_paths["repeat_off"]))
+            self.loop_button.setIcon(QIcon(loop_off_icon))
             self.is_looped = False
 
     def update_shuffle_icon(self):
         """ change the shuffle icon of the button is clicked"""
 
-        if not self.is_shuffled:
-            self.shuffle_button.setIcon(QIcon(self.icon_paths["shuffle"]))
+        # shuffle icons
+        shuffle_icon = self.icon_paths["shuffle"]
+        shuffle_off_icon = self.icon_paths["shuffle_off"]
+
+        if self.is_shuffled == False:
+            self.shuffle_button.setIcon(QIcon(shuffle_icon))
             self.is_shuffled = True
         else:
-            self.shuffle_button.setIcon(QIcon(self.icon_paths["shuffle_off"]))
+            self.shuffle_button.setIcon(QIcon(shuffle_off_icon))
             self.is_shuffled = False
 
-
-
-    
-            
-    
-
-
-        

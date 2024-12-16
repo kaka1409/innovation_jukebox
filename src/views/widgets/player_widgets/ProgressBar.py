@@ -10,7 +10,7 @@ class ProgressBar(QFrame):
         
         self.init_properties()
         self.init_children()
-        self.styling()
+        self.init_appearance()
 
     def init_properties(self):
         # position the frame
@@ -41,7 +41,7 @@ class ProgressBar(QFrame):
         self.end_time.setFont(QFont("Itim", 9, QFont.Light))
         self.end_time.setGeometry(471, 20, 30, 30)
 
-    def styling(self):
+    def init_appearance(self):
 
         # naming the widgets to target them in QSS
         self.setObjectName("control_frame")

@@ -9,7 +9,7 @@ class OptionsFrame(QFrame):
 
         self.init_properties()
         self.init_children()
-        self.styling()
+        self.init_appearance()
 
     def init_properties(self):
         # position the frame
@@ -90,12 +90,15 @@ class OptionsFrame(QFrame):
             # add to suitable layout
             # if is not a volume button will be added to main layout
             # else is a volume button will be added to volume stacked layout
-            if not "volume" in button_key:
-                self.layout.addWidget(button)
-            else:
-                self.volume_frame.stacked_layout.addWidget(button)
+            main_layout = self.layout
+            stacked_volume_layout = self.volume_frame.stacked_layout
 
-    def styling(self):
+            if not "volume" in button_key:
+                main_layout.addWidget(button)
+            else:
+                stacked_volume_layout.addWidget(button)
+
+    def init_appearance(self):
 
         self.setObjectName("options_frame")
         self.setStyleSheet(
@@ -135,16 +138,22 @@ class OptionsFrame(QFrame):
         self.volume_frame.stacked_layout.setCurrentIndex(index)
 
     def hearted(self):
-        
-        if self.is_hearted:
+        """
+        Toggle the heart button icon when clicked, and change the
+        state of self.is_hearted accordingly.
+        """
 
-            self.heart_icon.setIcon(QIcon(self.icon_paths["heart"]))
+        # heart icons
+        heart_icon = self.icon_paths["heart"]
+        hearted_icon = self.icon_paths["hearted"]
+
+        if self.is_hearted == False:
+            self.heart_icon.setIcon(QIcon(heart_icon))
+            self.is_hearted = True
+        else:
+            self.heart_icon.setIcon(QIcon(hearted_icon))
             self.is_hearted = False
 
-        else:
-
-            self.heart_icon.setIcon(QIcon(self.icon_paths["hearted"]))
-            self.is_hearted = True
 
 
 

@@ -42,3 +42,9 @@ def center_widget(widget, parent_widget):
     y = (parent_widget.height() - widget.height()) // 2
     widget.move(x, y)
 
+def get_text_width(widget):
+    """
+    return the width of the text in the widget
+    """
+    return widget.fontMetrics().boundingRect(widget.text()).width()
+

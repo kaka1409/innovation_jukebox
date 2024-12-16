@@ -50,23 +50,23 @@ class Menu(QFrame):
         
         # connect button click events to swicth tab in QStackedlayout
         # song button
-        song_button = self.tabs_frame.tab_buttons[0]
+        song_button = self.tabs_frame.song_tab
         song_button.clicked.connect(lambda: self.select_song_tab(song_button.tab_index))
         
         # playlist button
-        playlist_button = self.tabs_frame.tab_buttons[1]
+        playlist_button = self.tabs_frame.playlist_tab
         playlist_button.clicked.connect(lambda: self.select_song_tab(playlist_button.tab_index))
 
         # favorite button
-        favorite_button = self.tabs_frame.tab_buttons[2]
+        favorite_button = self.tabs_frame.favorite_tab
         favorite_button.clicked.connect(lambda: self.select_song_tab(favorite_button.tab_index))
 
         # genre button
-        genre_button = self.tabs_frame.tab_buttons[3]
+        genre_button = self.tabs_frame.genre_tab
         genre_button.clicked.connect(lambda: self.select_song_tab(genre_button.tab_index))
 
         # artist button
-        artist_button = self.tabs_frame.tab_buttons[4]
+        artist_button = self.tabs_frame.artist_tab
         artist_button.clicked.connect(lambda: self.select_song_tab(artist_button.tab_index))
 
         # set the size right after the window is created

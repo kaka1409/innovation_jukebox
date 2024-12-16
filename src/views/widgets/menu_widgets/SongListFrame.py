@@ -8,11 +8,11 @@ class SongListFrame(QFrame):
     def __init__(self, parent = None):
         super().__init__(parent)
         
-        self.initProperties() # init the frame(layout, size, ...)
+        self.init_properties() # init the frame(layout, size, ...)
         self.init_children() # init all necessary widgets
-        self.styling() # styling the frame and widgets
+        self.init_appearance() # init appearance of the frame and widgets
 
-    def initProperties(self):
+    def init_properties(self):
         
         # position and size
         self.setFixedSize(530, 575)
@@ -158,7 +158,7 @@ class SongListFrame(QFrame):
 
         return is_visible
 
-    def styling(self):
+    def init_appearance(self):
         self.setObjectName("song_list_frame")
         self.setStyleSheet(
             """
