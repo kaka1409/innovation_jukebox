@@ -1,0 +1,4 @@
+PyQt5=5.15.11
+pygame=2.6.1
+mutagen=1.47.0
+yt-dlp=2024.11.18
