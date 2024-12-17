@@ -17,7 +17,7 @@ class FileManager():
                 'preferredquality': '192',
             }],
             'outtmpl': os.path.join(self.container_folder, '%(title)s.%(ext)s'),
-            'ffmpeg_location': r'C:\\ffmpeg\\bin',  # Path to FFmpeg's folder
+            'ffmpeg_location': '.\\ffmpeg\\bin',  # Path to FFmpeg's folder
         }
 
     def download_mp3_file(self, youtube_url):

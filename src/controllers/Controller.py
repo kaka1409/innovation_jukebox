@@ -447,6 +447,7 @@ class Controller():
 
         # reset thumbnail animation
         player_container.thumbnail.reset_animation()
+        
     def handle_song_addtion(self, confirm_button):
         """
         update song list when a new song is added

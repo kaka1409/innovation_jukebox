@@ -18,9 +18,19 @@ class SearchBar(QFrame):
     def __init__(self, parent = None):
         super().__init__(parent)
 
+        self.init_properties()
+        self.init_children()
+        self.init_appearance()
+        
+    def init_properties(self):
+
+        # position
         self.setGeometry(30, 15, 475, 60)
 
+        # layout
         self.layout = QHBoxLayout(self)
+
+    def init_children(self):
 
         # search icon
         self.search_icon = QPushButton()
@@ -31,7 +41,7 @@ class SearchBar(QFrame):
         self.search_icon.setCursor(Qt.PointingHandCursor)
         self.layout.addWidget(self.search_icon) # add icon to search bar
 
-        # search line
+        # search input line
         self.search_input = QLineEdit(self)
         self.search_input.setPlaceholderText("Search")
         self.search_input.setFont(QFont("Itim", 8))
@@ -91,36 +101,6 @@ class SearchBar(QFrame):
         list_shadow_effect.setColor(QColor(50, 50, 50, 80)) # black color
         self.options_frame.setGraphicsEffect(list_shadow_effect)
 
-        # styling the list
-        self.options_frame.setStyleSheet(
-            """
-                QListWidget {
-                    padding: 5px;
-                    border-radius: 15px;
-                    background: qlineargradient(
-                        x1: 0, y1: 0, x2: 0, y2: 1,
-                        stop: 0 rgb(200, 190, 230),
-                        stop: 1 rgb(180, 170, 210)    
-                    );
-                }
-                
-                QListWidget::item {
-                    margin: 2px 5px;
-                    border-radius: 8px;
-                    text-align: center;
-                    height: 30px;
-                }
-
-                QListWidget::item:hover {
-                    background-color: rgb(200, 200, 235); 
-                }
-
-                QListWidget::item:selected {
-                    background-color: rgb(210, 210, 240);
-                }
-            """
-        )
-
         # create list items
         name_option_item = QListWidgetItem("Search by name")
         name_option_item.setFont(QFont("Itim", 10))
@@ -146,6 +126,9 @@ class SearchBar(QFrame):
         # add the list to the layout of the option frame
         self.options_frame.layout.addWidget(self.options_frame.options_list)
 
+    def init_appearance(self):
+        
+        # styling the search bar
         self.setObjectName("search_container")
         self.setStyleSheet(
             """
@@ -205,6 +188,36 @@ class SearchBar(QFrame):
             """
         )
 
+        # styling the search options list
+        self.options_frame.setStyleSheet(
+            """
+                QListWidget {
+                    padding: 5px;
+                    border-radius: 15px;
+                    background: qlineargradient(
+                        x1: 0, y1: 0, x2: 0, y2: 1,
+                        stop: 0 rgb(200, 190, 230),
+                        stop: 1 rgb(180, 170, 210)    
+                    );
+                }
+                
+                QListWidget::item {
+                    margin: 2px 5px;
+                    border-radius: 8px;
+                    text-align: center;
+                    height: 30px;
+                }
+
+                QListWidget::item:hover {
+                    background-color: rgb(200, 200, 235); 
+                }
+
+                QListWidget::item:selected {
+                    background-color: rgb(210, 210, 240);
+                }
+            """
+        )
+
     def on_searching(self):
         """show remove icon when searching"""
 
@@ -218,7 +231,7 @@ class SearchBar(QFrame):
             self.is_searching = False
 
     def get_search_input(self):
-        """return user input (removed whitespaces and lowercase)"""
+        """return user input (remove whitespaces and lowercase)"""
 
         return str(self.search_input.text().replace(" ", "").lower())
     

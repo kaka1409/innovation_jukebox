@@ -16,12 +16,14 @@ This project was initially coursework for my university that for some reason tur
     git clone https://github.com/kaka1409/innovation_jukebox.git
     ```
 
-2. Navigate to the project directory:
+2. Install the required packages:
+
+    2.1. Install required packages in a single command:
     ```bash
-    cd <your-repository>
+    pip install -r requirements.txt
     ```
 
-3. Install the required packages:
+    2.2. Install required packages individually:
 
     install PyQt5 for UI development:
     ```bash
@@ -42,11 +44,6 @@ This project was initially coursework for my university that for some reason tur
     ```bash
     pip install yt-dlp
     ```
-4. Install FFmpeg and put it in your C drive
-
-- FFmpeg download link: https://www.ffmpeg.org/download.html
-- Download and extract the file then put it in your C:\\
-- Finally add it to your system's path C:\ffmpeg\bin
 
 ## Usage
 

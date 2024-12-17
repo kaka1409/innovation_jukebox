@@ -98,7 +98,7 @@ class TabsFrame(QFrame):
     def move_indicator(self):
         """Move the line under the selected tab"""
 
-        # get necessary widgets
+        # select necessary widgets
         selected_tab = self.selected_tab
         line = self.indicator
         line_animation = self.moving_line_animation

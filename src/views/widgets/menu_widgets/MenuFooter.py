@@ -19,6 +19,11 @@ class MenuFooter(QFrame):
     def __init__(self, parent = None):
         super().__init__(parent)
 
+        self.init_properties()
+        self.init_children()
+        self.init_appearance()
+
+    def init_properties(self):
         # Set geometry and layout for the footer
         self.setGeometry(25, 735, 500, 50)
         self.layout = QHBoxLayout(self)
@@ -26,6 +31,7 @@ class MenuFooter(QFrame):
         self.layout.setContentsMargins(0, 0, 0, 0)
         self.layout.setSpacing(100)
 
+    def init_children(self):
         # Add button
         self.add_button = QPushButton("Add")
         self.add_button.setFixedSize(80, 40)
@@ -104,17 +110,6 @@ class MenuFooter(QFrame):
         self.popup_background = QFrame(self.add_window)
         self.popup_background.move(0, 0)
         self.popup_background.setFixedSize(300, 200)
-        self.popup_background.setStyleSheet(
-            """
-                background: qlineargradient(
-                        x1: 0, y1: 0, x2: 0, y2: 1,
-                        stop: 0 rgb(200, 190, 230),
-                        stop: 1 rgb(190, 120, 200)   
-                    );
-
-                border-radius: 20px;
-            """
-        )
 
         # creaate shadow effect for the pop up
         shadow = QGraphicsDropShadowEffect()
@@ -181,6 +176,8 @@ class MenuFooter(QFrame):
 
         self.add_window.hide() # set pop up hidden as default
 
+    def init_appearance(self):
+
         # styling the pop up window
         self.add_window.setStyleSheet(
             """
@@ -206,6 +203,19 @@ class MenuFooter(QFrame):
                 #confirm_button:hover, #cancel_button:hover {
                     background-color: rgba(255, 255, 255, 0.8);
                 }
+            """
+        )
+
+        # styling the background of the pop up
+        self.popup_background.setStyleSheet(
+            """
+                background: qlineargradient(
+                        x1: 0, y1: 0, x2: 0, y2: 1,
+                        stop: 0 rgb(200, 190, 230),
+                        stop: 1 rgb(190, 120, 200)   
+                    );
+
+                border-radius: 20px;
             """
         )
 
