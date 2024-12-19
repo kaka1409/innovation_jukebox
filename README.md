@@ -44,6 +44,8 @@ This project was initially coursework for my university that for some reason tur
     ```bash
     pip install yt-dlp
     ```
+3. Download FFmpeg, extract and put it in the project's directory
+   - FFmpeg download link: https://www.ffmpeg.org/download.html
 
 ## Usage
 
